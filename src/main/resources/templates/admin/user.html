@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/admin-layout :: header(title='User Management')">
+</head>
+
+<body>
+
+	<div th:include="fragments/admin-layout :: navbar(active='Users')"></div>
+
+	<div class="container">
+
+		<h1 class="py-4"><i class="bi-people"></i> User Management System</h1>
+
+		<div class="row">
+
+			<div class="col-3">
+				<div class="list-group">
+					<a th:href="@{/admin/user}" class="list-group-item"><i class="bi bi-person-lines-fill"></i> User List</a>
+				</div>
+			</div>
+
+			<div class="col">
+
+				<div class="alert alert-warning" th:unless="${param.message} eq null" th:text="${param.message}"></div>
+
+				<!-- Search Box -->
+				<div class="card">
+					<div class="card-header bg-primary bg-opacity-75">
+						<h4>User List</h4>
+					</div>
+
+					<div class="card-body">
+						<form class="row">
+
+							<div class="col-12 col-md mb-2 mb-md-0">
+								<input type="text" name="username" th:value="${param.username}"
+									placeholder="Search with Username" class="form-control username" />
+							</div>
+
+							<div class="col-12 col-md-auto mb-2 mb-md-0">
+								<select name="role" class="form-select role" aria-label="Default select example">
+									<option value="">Choose Role</option>
+									<option th:each="role : ${roles}" th:text="${role}" th:value="${role}" th:selected="${#strings.equals(param.role, role)}"></option>
+								</select>
+							</div>
+
+							<div class="col-md-auto">
+								<button type="button" id="search-btn" class="btn btn-primary"><i class="bi-search"></i> Search</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<!-- Result Table -->
+				<table class="table table-success table-striped mt-4">
+
+					<thead class="table-warning">
+						<tr>
+							<th>No.</th>
+							<th>Username</th>
+							<th>Email</th>
+							<th>Role</th>
+							<th class="text-end"></th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="user,iter : ${users}" class="align-middle">
+							<td th:text="${iter.index} + 1 + '.'"></td>
+							<td th:text="${user.username}"></td>
+							<td th:text="${user.email}"></td>
+							<td th:text="${user.role}"></td>
+							<td class="text-end">
+								<a th:href="@{/admin/user/update/} + ${user.id}" class="btn btn-link">
+									<i class="bi bi-card-list"></i>
+								</a>
+								<a th:if="!${#strings.equals(user.email, currentUser)}" th:href="@{/admin/user/delete/} + ${user.id}" class="btn btn-link text-danger">
+									<i class="bi bi-trash"></i>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+
+				</table>
+
+			</div>
+
+		</div>
+	</div>
+
+	<div th:include="fragments/admin-layout :: footer"></div>
+	<script>
+		$( document ).ready(function() {
+		    $('#search-btn').on('click', function() {
+				window.location = window.location.origin + "/admin/user/search?username=" + $(".username").val() + "&role=" + $(".role").val();
+			});
+		});
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.japanesepractice.model.repository.ResultRepository">
+
+	<resultMap id="ResultResultMap" type="com.app.japanesepractice.model.domain.entity.Result">
+		<result column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="result" property="result" />
+		<result column="level" property="level" />
+		<result column="created_at" property="createdAt" />
+	</resultMap>
+	
+	<resultMap id="ResultVoResultMap" type="com.app.japanesepractice.model.domain.vo.ResultVo">
+		<result column="id" property="id" />
+		<result column="username" property="username" />
+		<result column="result" property="result" />
+		<result column="level" property="level" />
+		<result column="created_at" property="createdAt" />
+	</resultMap>
+	
+	<insert id="save" >
+		INSERT INTO result(user_id,result,level,created_at) 
+		VALUES ((SELECT u.id FROM users u WHERE email = #{email}),#{result.result},#{result.level},NOW())
+	</insert>
+	
+	<select id="getResults" resultMap="ResultVoResultMap">
+		SELECT r.*, u.username FROM result r
+		LEFT OUTER JOIN users u
+		ON u.id = r.user_id
+		WHERE 1 = 1
+		<if test="username != null and username != ''">
+			and u.username like CONCAT('%', #{username}, '%')
+		</if>
+		<if test="level != null and level != ''">
+			and r.level = #{level}
+		</if>
+		ORDER BY r.id DESC
+	</select>
+	
+	<select id="findOneById" resultMap="ResultResultMap">
+		SELECT * FROM result WHERE id = #{id}
+	</select>
+	
+	<select id="count">
+		SELECT COUNT(id) FROM result
+	</select>
+	
+	<delete id="deleteByUserId" >
+		DELETE FROM result
+		WHERE user_id = #{userId}
+	</delete>
+	
+</mapper>

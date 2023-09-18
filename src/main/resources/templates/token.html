@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/layout :: header(title='Token')">
+</head>
+
+<body>
+
+	<div th:include="fragments/layout :: navbar"></div>
+
+	<section class="py-5">
+		<div class="container">
+			<div class="card m-auto form" style="width: 28rem;">
+				<div class="card-header text-center bg-primary bg-opacity-75">
+					<h3>Get Token</h3>
+				</div>
+				<div class="card-body">
+					<form th:action="@{/token} + '?bookId=' + ${param.bookId}" method="post">
+						<div th:if="${invalid != null}" class="alert alert-info text-danger" th:text="${invalid}"></div>
+						<div class="mb-3">
+							<label for="password" class="form-label"><i class="bi bi-key-fill"></i> Enter Password to Generate Token</label>
+							<input type="password" class="form-control" id="password" name="password">
+						</div>
+						<button type="submit" class="btn btn-primary">Get Token</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div th:include="fragments/layout :: footer"></div>
+
+</body>
+
+</html>

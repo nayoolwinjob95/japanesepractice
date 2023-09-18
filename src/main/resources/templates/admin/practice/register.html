@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/admin-layout :: header(title='Practice Management')">
+</head>
+
+<body>
+
+	<div th:include="fragments/admin-layout :: navbar(active='Practices')"></div>
+
+	<div class="container">
+
+		<h1 class="py-4"><i class="bi bi-file-earmark-check"></i> Practice Management</h1>
+
+		<div class="row">
+
+			<div class="col-12 col-md-3 mb-3">
+				<div class="list-group">
+					<a th:href="@{/admin/practice}" class="list-group-item"><i class="bi bi-list-ol"></i> Question List</a>
+					<a th:href="@{/admin/practice/register}" class="list-group-item"><i class="bi bi-database-add"></i> Add New Question</a>
+					<a th:href="@{/admin/practice/result}" class="list-group-item"><i class="bi bi-database"></i> View Result</a>
+				</div>
+			</div>
+
+			<div class="col">
+
+				<div class="alert alert-warning" th:unless="${param.message} eq null" th:text="${param.message}"></div>
+
+				<!-- Search Box -->
+				<div class="card">
+					<div class="card-header bg-primary bg-opacity-75">
+						<h4>Practice Register</h4>
+					</div>
+
+					<div class="card-body">
+						<form id="practiceForm" th:action="@{/admin/practice/register}" method="post" th:object="${form}">
+
+							<input type="hidden" th:field="*{choices}">
+
+							<div class="mb-3">
+								<label for="question" class="form-label">Question</label>
+								<input type="text" class="form-control" th:field="*{question}">
+								<span th:if="${#fields.hasErrors('question')}" th:errors="*{question}" class="text-danger"></span>
+							</div>
+							
+							<div class="mb-3">
+								<label for="choice" class="form-label">Choices</label>
+								<div class="d-flex flex-column flex-sm-row">
+									<input type="text" class="form-control mb-2 mb-sm-0" name="choice1" id="choice1" placeholder="choice 1" th:value="${param.choice1}">
+									<input type="text" class="form-control mb-2 mb-sm-0" name="choice2" id="choice2" placeholder="choice 2" th:value="${param.choice2}">
+									<input type="text" class="form-control mb-2 mb-sm-0" name="choice3" id="choice3" placeholder="choice 3" th:value="${param.choice3}">
+									<input type="text" class="form-control" name="choice4" id="choice4" placeholder="choice 4" th:value="${param.choice4}">
+								</div>
+								<span th:if="${#fields.hasErrors('choices')}" th:errors="*{choices}" class="text-danger"></span>
+							</div>
+							
+							<div class="mb-3">
+								<label for="answer" class="form-label">Answer</label>
+								<input type="text" class="form-control" th:field="*{answer}">
+								<span th:if="${#fields.hasErrors('answer')}" th:errors="*{answer}" class="text-danger"></span>
+							</div>
+							
+							<div class="mb-3">
+								<label for="level" class="form-label">Choose Japanese Level</label>
+								<select id="level" name="level" class="form-select" aria-label="Default select example">
+									<option></option>
+									<option th:each="level : ${levels}" th:text="${level}" th:value="${level}" th:selected="${#strings.equals(form.level, level)}"></option>
+								</select>
+								<span th:if="${#fields.hasErrors('level')}" th:errors="*{level}" class="text-danger"></span>
+							</div>
+							
+							<button type="submit" class="btn btn-primary col-auto">Submit</button>
+
+						</form>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+	<div th:include="fragments/admin-layout :: footer"></div>
+	<script>
+		$( document ).ready(function() {
+		    $('#practiceForm').on('submit', function(e) {
+				var choices = $('#choice1').val() + "," + $('#choice2').val() + "," + $('#choice3').val() + "," + $('#choice4').val();
+				$('#choices').val(choices);
+				$(this).submit();
+			});
+		});
+	</script>
+
+</body>
+
+</html>

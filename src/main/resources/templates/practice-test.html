@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/layout :: header(title='Practice Test')">
+</head>
+
+<body>
+
+	<div th:include="fragments/layout :: navbar"></div>
+
+	<section class="py-5">
+		<div class="container border border-black rounded-4">
+			<div class="row">
+
+				<div class=" text-white resources rounded-top-4" th:text="${level} + ' Practice Test'"></div>
+
+				<section class="p-5">
+					<div class="container" th:if="${result} == null">
+
+						<form id="answerForm" th:action="@{/practice/practice-test/} + ${level}" method="post" accept-charset="UTF-8">
+
+							<div class="question mb-4" th:each="practice, iter : ${practices}">
+								<p th:text="(${iter.index} + 1) + '. ' + ${practice.question}"></p>
+								<div class="form-check"
+									th:each="choice, choiceIter : ${#strings.arraySplit(practice.choices, ',')}">
+									<input class="form-check-input" type="radio" th:name="${practice.id}"
+										th:id="'radios' + (${iter.index} + 1) + (${choiceIter.index} + 1)"
+										th:value="${choice}" th:attr="data-id=${practice.id}" required>
+									<label class="form-check-label"
+										th:for="'radios' + (${iter.index} + 1) + (${choiceIter.index} + 1)"
+										th:text="${choice}">
+									</label>
+								</div>
+							</div>
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</form>
+
+					</div>
+					
+					<div class="container text-center" th:if="${result} != null">
+						<h3 th:text="'Test Result - ' + ${result} + '/100'"></h3>
+					</div>
+				</section>
+
+			</div>
+		</div>
+	</section>
+
+	<div th:include="fragments/layout :: footer"></div>
+
+</body>
+
+</html>

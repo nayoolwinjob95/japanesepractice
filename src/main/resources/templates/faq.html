@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/layout :: header(title='FAQ')">
+</head>
+
+<body>
+
+	<div th:include="fragments/layout :: navbar(active='FAQ')"></div>
+
+	<section class="py-5">
+		<div class="container border border-black rounded-4">
+			<div class="row">
+
+				<div class=" text-white resources rounded-top-4" th:text="#{faqask}">Frequently Ask Question</div>
+
+				<div class="accordion accordion-flush mt-4 mb-5" id="accordionFlush">
+					<div class="accordion-item mb-2">
+						<h2 class="accordion-header">
+							<button class="accordion-button collapsed bg-primary bg-opacity-50" type="button" data-bs-toggle="collapse"
+								data-bs-target="#flush-collapseOne" aria-expanded="false"
+								aria-controls="flush-collapseOne" th:text="#{taketest}">
+								How to take Japanese Practice Test?
+							</button>
+						</h2>
+						<div id="flush-collapseOne" class="accordion-collapse collapse"
+							data-bs-parent="#accordionFlush">
+							<div class="accordion-body">
+								<p th:text="#{practicestep1}" class="m-0 p-0">Step 1. Go to "PRACTICE" page.</p>
+								<p th:text="#{practicestep2}" class="m-0 p-0">Step 2. Choose the Japanese Level you want to take. (N1, N2, N3, N4, N5)</p>
+								<p th:text="#{practicestep3}" class="m-0 p-0">Step 3. Take the test.</p>
+								<p th:text="#{practicestep4}" class="m-0 p-0">Step 4. See the result.</p>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-item mb-2">
+						<h2 class="accordion-header">
+							<button class="accordion-button collapsed bg-primary bg-opacity-50" type="button" data-bs-toggle="collapse"
+								data-bs-target="#flush-collapseTwo" aria-expanded="false"
+								aria-controls="flush-collapseTwo" th:text="#{contact}">
+								Contact Us?
+							</button>
+						</h2>
+						<div id="flush-collapseTwo" class="accordion-collapse collapse"
+							data-bs-parent="#accordionFlush">
+							<div class="accordion-body">
+								<p th:text="#{contactus}" class="d-inline-block m-0 p-0">Contant Us By Mail - </p>
+								<a th:text="#{sendemail}" href="mailto:japanesepractice@mail.com" class="d-inline-block" style="color: rgba(var(--bs-link-color-rgb),var(--bs-link-opacity,1)); text-decoration: underline">
+									Send email
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<div th:include="fragments/layout :: footer"></div>
+
+</body>
+
+</html>

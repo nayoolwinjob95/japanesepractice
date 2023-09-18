@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/layout :: header(title='Token')">
+</head>
+
+<body>
+
+	<div th:include="fragments/layout :: navbar"></div>
+
+	<section class="py-5">
+		<div class="container">
+			<div class="card m-auto form" style="width: 28rem;">
+				<div class="card-header text-center bg-primary bg-opacity-75">
+					<h3>Check Your Email</h3>
+				</div>
+				<div class="card-body">
+					<p>Please check email to get sharable URL for downloading ebook.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div th:include="fragments/layout :: footer"></div>
+
+</body>
+
+</html>

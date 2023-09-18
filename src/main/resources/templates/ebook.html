@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/layout :: header(title='Ebook')">
+</head>
+
+<body>
+
+	<div th:include="fragments/layout :: navbar(active='Ebook')"></div>
+
+	<section class="py-5">
+		<div class="container border border-black rounded-4">
+			<div class="row">
+
+				<div class=" text-white resources rounded-top-4" th:text="#{downloadebook}">Download Japanese Free Ebook</div>
+
+				<div class="col-md-12 text-center mb-4">
+					<div class="card">
+						<div class="card-body">
+							<form class="row g-3 align-items-center">
+								<div class="col-12 col-md-5">
+									<label for="bookName" class="visually-hidden">Book Name</label>
+									<input type="text" class="form-control bookTitle" id="bookName" name="bookTitle" th:value="${param.bookTitle}"
+										placeholder="Enter a book name">
+								</div>
+								<div class="col-12 col-md-5">
+									<label for="password" class="visually-hidden">Password</label>
+									<select name="level" class="form-select level" aria-label="Default select example">
+										<option value="">Choose Japanese Level</option>
+										<option th:each="level : ${levels}" th:text="${level}" th:value="${level}" th:selected="${#strings.equals(param.level, level)}"></option>
+									</select>
+								</div>
+								<div class="col-12 col-md-2">
+									<button type="button" id="search-btn" class="btn btn-primary">Search</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-12 text-center mb-4">
+					<div class="row text-start">
+
+						<div class="col-12"><a th:href="@{/ebook/download}" class="btn btn-success">Download Free Ebook with token</a></div>
+
+						<div class="p-2 col-12 col-md-3 col-sm-4 my-2" th:each="ebook : ${ebooks}">
+							<div class="card">
+								<img th:src="@{/resources/image/ebooks/} + ${ebook.id} +'.png'" class="card-img-top w-auto ebook-img" alt="book's image">
+								<div class="card-body">
+									<h5 th:if="${#strings.equals(#locale, 'en')}" class="card-title text-nowrap overflow-hidden" th:text="${ebook.bookTitle}"></h5>
+									<h5 th:if="${#strings.equals(#locale, 'ja')}" class="card-title text-nowrap overflow-hidden" th:text="${ebook.bookTitleKana}"></h5>
+								</div>
+								<ul class="list-group list-group-flush">
+									<li class="list-group-item" th:text="#{jplevel} + ${ebook.level}"></li>
+								</ul>
+								<div class="card-body">
+									<a sec:authorize="!isAuthenticated()" th:href="@{/users/signin}" class="btn btn-primary">To Download - Login First</a>
+									<a sec:authorize="isAuthenticated()" href="javascript:void(0)" class="btn btn-primary download-book" th:attr="data-ebook=${ebook.id}">Download Ebook</a>
+									<p sec:authorize="isAuthenticated()" class="m-0">(or)</p>
+									<a sec:authorize="isAuthenticated()" th:href="@{/token} + '?bookId=' + ${ebook.id}" class="btn btn-primary">Share With URL</a>
+								</div>
+							</div>
+						</div>
+						
+						<div th:if="${#lists.isEmpty(ebooks)}" class="col-12 my-5 text-center"><h3>No Book Found.</h3></div>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<div th:include="fragments/layout :: footer"></div>
+	<script>
+		$( document ).ready(function() {
+		    $('#search-btn').on('click', function() {
+				window.location = window.location.origin + "/ebook/search?bookTitle=" + $(".bookTitle").val() + "&level=" + $(".level").val();
+			});
+			
+			$('.download-book').on('click', function() {
+				window.open('/download/file/' + $(this).data('ebook') + '.pdf', '_blank');
+			});
+		});
+	</script>
+
+</body>
+
+</html>

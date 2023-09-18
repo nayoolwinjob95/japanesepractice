@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/admin-layout :: header(title='Home')">
+</head>
+
+<body>
+
+	<div th:include="fragments/admin-layout :: navbar(active='Admin-Home')"></div>
+
+	<div class="container">
+
+		<h1 class="py-4"><i class="bi-bar-chart"></i> Management System</h1>
+
+		<div class="row">
+
+			<div class="col-3">
+				<div class="list-group">
+					<a th:href="@{/admin/home}" class="list-group-item"><i class="bi-house"></i> Home</a>
+					<!--<a href="#" class="list-group-item"><i class="bi-person-circle"></i> Profile</a>-->
+					<!--<a href="#" class="list-group-item"><i class="bi-key"></i> Change Password</a>-->
+					<a href="#" id="signoutLink" class="list-group-item"><i class="bi-door-open"></i> Logout</a>
+				</div>
+			</div>
+
+			<div class="col">
+
+				<div class="card">
+					<div class="card-header bg-primary bg-opacity-75">
+						<h4>Home</h4>
+					</div>
+
+					<div class="card-body text-center">
+						<h3 th:text="'Welcome ' + ${currentUser}"></h3>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+	<div th:include="fragments/admin-layout :: footer"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/layout :: header(title='Home')">
+</head>
+<body>
+
+	<div th:include="fragments/layout :: navbar(active='Home')"></div>
+
+	<!--SHOWCASE SLIDER SECTION-->
+	<header>
+		<div id="mycarousel" class="carousel slide" data-bs-ride="carousel">
+			
+			<ol class="carousel-indicators">
+				<li class="active slider" data-bs-target="#mycarousel" data-bs-slide-to="0"></li>
+				<li class="slider" data-bs-target="#mycarousel" data-bs-slide-to="1"></li>
+				<li class="slider" data-bs-target="#mycarousel" data-bs-slide-to="2"></li>
+			</ol>
+
+			<div class="carousel-inner">
+				
+				<div class="carousel-item active carouselimages1">
+					<div class="container">
+						<div class="carousel-caption text-sm-end text-center d-sm-block mb-5">
+							<div class="d-none d-sm-inline-block">
+								<h1 class="display-3">View Practice Question</h1>
+								<p class="lead text-end">Test Your Japanese Ability through Our Practice Question.</p>
+							 	<a th:href="@{/practice}" class="btn btn-danger btn-lg">Practice Now</a>
+						 	</div>
+						 	<a th:href="@{/practice}" class="btn btn-danger btn-lg d-inline-block d-sm-none">Practice</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="carousel-item carouselimages2">
+					<div class="container">
+						<div class="carousel-caption d-sm-block mb-5">
+							<div class="d-none d-sm-inline-block">
+								<h1 class="display-3">PDF Download</h1>
+								<p class="lead text-end">Download the Japanese Practice Books (PDF).</p>
+							 	<a th:href="@{/ebook}" class="btn btn-primary btn-lg">Learn More</a>
+						 	</div>
+						 	<a th:href="@{/ebook}" class="btn btn-primary btn-lg d-inline-block d-sm-none">PDF Download</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="carousel-item carouselimages3">
+					<div class="container">
+						<div class="carousel-caption text-sm-end text-center d-sm-block mb-5">
+							<div class="d-none d-sm-inline-block">
+								<h1 class="display-3">FAQ</h1>
+								<p class="lead text-end">Want to know Frequently Ask Question?</p>
+							 	<a th:href="@{/faq}" class="btn btn-success btn-lg">See FAQ</a>
+						 	</div>
+						 	<a th:href="@{/faq}" class="btn btn-success btn-lg d-inline-block d-sm-none">FAQ</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<a href="#mycarousel" class="carousel-control-prev" data-bs-slide="prev"><span class="carousel-control-prev-icon" ></span></a>
+			<a href="#mycarousel" class="carousel-control-next" data-bs-slide="next"><span class="carousel-control-next-icon"></span></a>
+
+		</div>
+	</header>
+
+	<!--ICON SECTION-->
+	<section class="py-5">
+		<div class="container">
+			<div class="row">
+
+				<div class=" text-white resources">JLPT N5 RESOURCES</div>
+
+				<div class="col-md-6 text-center mb-4">
+					<div class="list-group">
+						<a th:href="@{/ebook/search?bookTitle=&level=N5}" class="list-group-item list-group-item-action">N5 FREE EBOOK</a>
+					</div>
+				</div>
+
+				<div class="col-md-6 text-center mb-4">
+					<div class="list-group">
+						<a th:href="@{/practice/practice-test/N5}" class="list-group-item list-group-item-action">N5 PRACTICE TEST</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<section class="py-5">
+		<div class="container">
+			<div class="row">
+
+				<div class=" text-white resources">JLPT N4 RESOURCES</div>
+
+				<div class="col-md-6 text-center mb-4">
+					<div class="list-group">
+						<a th:href="@{/ebook/search?bookTitle=&level=N4}" class="list-group-item list-group-item-action">N4 FREE EBOOK</a>
+					</div>
+				</div>
+
+				<div class="col-md-6 text-center mb-4">
+					<div class="list-group">
+						<a th:href="@{/practice/practice-test/N4}" class="list-group-item list-group-item-action">N4 PRACTICE TEST</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<section class="py-5">
+		<div class="container">
+			<div class="row">
+
+				<div class=" text-white resources">JLPT N3 RESOURCES</div>
+
+				<div class="col-md-6 text-center mb-4">
+					<div class="list-group">
+						<a th:href="@{/ebook/search?bookTitle=&level=N3}" class="list-group-item list-group-item-action">N3 FREE EBOOK</a>
+					</div>
+				</div>
+
+				<div class="col-md-6 text-center mb-4">
+					<div class="list-group">
+						<a href="#" class="list-group-item list-group-item-action disabled">N3 PRACTICE TEST (Coming Soon)</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<section class="py-5">
+		<div class="container">
+			<div class="row">
+
+				<div class=" text-white resources">JLPT N2 RESOURCES</div>
+
+				<div class="col-md-6 text-center mb-4">
+					<div class="list-group">
+						<a th:href="@{/ebook/search?bookTitle=&level=N2}" class="list-group-item list-group-item-action">N2 FREE EBOOK</a>
+					</div>
+				</div>
+
+				<div class="col-md-6 text-center mb-4">
+					<div class="list-group">
+						<a href="#" class="list-group-item list-group-item-action disabled">N2 PRACTICE TEST (Coming Soon)</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<section class="py-5">
+		<div class="container">
+			<div class="row">
+
+				<div class=" text-white resources">JLPT N1 RESOURCES</div>
+
+				<div class="col-md-6 text-center mb-4">
+					<div class="list-group">
+						<a th:href="@{/ebook/search?bookTitle=&level=N1}" class="list-group-item list-group-item-action">N1 FREE EBOOK</a>
+					</div>
+				</div>
+
+				<div class="col-md-6 text-center mb-4">
+					<div class="list-group">
+						<a href="#" class="list-group-item list-group-item-action disabled">N1 PRACTICE TEST (Coming Soon)</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<!--STUDY SECTON-->
+	<section id="study">
+		<div class="darkoverlays">
+			<div class="row">
+				<div class="col py-5">
+					<h1>Study Japanese<br>N5 to N1</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!--footer-->
+	<div class="section">
+		<div class="container p-2 mt-2">
+			<div class="row d-flex justify-content-center align-items-center">
+				<div class="col-md-4 text-center mb-2">
+					<div class="list mb-3 bg-secondary bg-opacity-75">VOCABULARY LISTS</div>
+					<a href="#" class="a-disabled">JLPT N1 vocabulary list (Coming Soon)</a><br/>
+					<a href="#" class="a-disabled">JLPT N2 vocabulary list (Coming Soon)</a><br/>
+					<a href="#" class="a-disabled">JLPT N3 vocabulary list (Coming Soon)</a><br/>
+					<a href="#" class="a-disabled">JLPT N4 vocabulary list (Coming Soon)</a><br/>
+					<a href="#" class="a-disabled">JLPT N5 vocabulary list (Coming Soon)</a>
+				</div>
+		
+				<div class="col-md-4 text-center mb-2">
+					<div class="list mb-3 bg-secondary bg-opacity-75">GRAMMAR LISTS</div>
+					<a href="#" class="a-disabled">JLPT N1 grammar list (Coming Soon)</a><br/>
+					<a href="#" class="a-disabled">JLPT N2 grammar list (Coming Soon)</a><br/>
+					<a href="#" class="a-disabled">JLPT N3 grammar list (Coming Soon)</a><br/>
+					<a href="#" class="a-disabled">JLPT N4 grammar list (Coming Soon)</a><br/>
+					<a href="#" class="a-disabled">JLPT N5 grammar list (Coming Soon)</a>
+				</div>
+		
+				<div class="col-md-4 text-center mb-2">
+					<div class="list mb-3 bg-secondary bg-opacity-75">KANJI LISTS</div>
+					<a href="#" class="a-disabled">JLPT N1 kanji list (Coming Soon)</a><br/>
+					<a href="#" class="a-disabled">JLPT N2 kanji list (Coming Soon)</a><br/>
+					<a href="#" class="a-disabled">JLPT N3 kanji list (Coming Soon)</a><br/>
+					<a href="#" class="a-disabled">JLPT N4 kanji list (Coming Soon)</a><br/>
+					<a href="#" class="a-disabled">JLPT N5 kanji list (Coming Soon)</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:include="fragments/layout :: footer"></div>
+
+</body>
+</html>

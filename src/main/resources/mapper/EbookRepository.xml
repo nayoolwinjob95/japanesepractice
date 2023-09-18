@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.japanesepractice.model.repository.EbookRepository">
+
+	<resultMap id="EbookResultMap" type="com.app.japanesepractice.model.domain.entity.Ebook">
+		<result column="id" property="id" />
+		<result column="book_title" property="bookTitle" />
+		<result column="book_title_kana" property="bookTitleKana" />
+		<result column="level" property="level" />
+		<result column="created_at" property="createdAt" />
+		<result column="updated_at" property="updatedAt" />
+	</resultMap>
+	
+	<insert id="save" >
+		INSERT INTO ebook(book_title,book_title_kana,level,created_at,updated_at) 
+		VALUES (#{bookTitle},#{bookTitleKana},#{level},NOW(),NOW())
+	</insert>
+	
+	<update id="update" >
+		UPDATE ebook 
+		SET book_title = #{bookTitle},
+			book_title_kana = #{bookTitleKana},
+			level = #{level},
+			updated_at = NOW()
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete" >
+		DELETE FROM ebook
+		WHERE id = #{id}
+	</delete>
+	
+	<select id="getCurrentIdSeq" >
+		SELECT last_value FROM ebook_id_seq
+	</select>
+	
+	<select id="getEbooks" resultMap="EbookResultMap">
+		SELECT * FROM ebook b
+		WHERE 1 = 1
+		<if test="bookTitle != null and bookTitle != ''">
+			and (b.book_title like CONCAT('%', #{bookTitle}, '%')
+			or b.book_title_kana like CONCAT('%', #{bookTitle}, '%'))
+		</if>
+		<if test="level != null and level != ''">
+			and b.level = #{level}
+		</if>
+		ORDER BY b.id DESC
+	</select>
+	
+	<select id="getEbookWithId" resultMap="EbookResultMap" >
+		SELECT * FROM ebook
+		WHERE id = #{id}
+	</select>
+	
+	<select id="findOneById" resultMap="EbookResultMap">
+		SELECT * FROM ebook WHERE id = #{id}
+	</select>
+	
+	<select id="count">
+		SELECT COUNT(id) FROM ebook
+	</select>
+	
+	<select id="getLastId">
+		SELECT MAX(id) FROM ebook
+	</select>
+	
+</mapper>

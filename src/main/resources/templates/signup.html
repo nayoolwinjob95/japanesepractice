@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/layout :: header(title='Sign Up')">
+</head>
+
+<body>
+
+	<div th:include="fragments/layout :: navbar"></div>
+
+	<section class="py-5">
+		<div class="container">
+			<div class="card m-auto form" style="width: 28rem;">
+				<div class="card-header text-center bg-primary bg-opacity-75">
+					<h3 th:text="#{signup}">Sign Up</h3>
+				</div>
+				<div class="card-body">
+					<form th:action="@{/users/signup}" method="post" th:object="${form}" id="signUpForm">
+						<div class="mb-3">
+							<label for="username" class="form-label"><i class="bi bi-person"></i> Full Name</label>
+							<input type="text" class="form-control" th:field="*{username}" required>
+							<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></span>
+						</div>
+						<div class="mb-3">
+							<label for="email" class="form-label"><i class="bi bi-envelope-at"></i> Email Address</label>
+							<input type="email" class="form-control" th:field="*{email}"
+								aria-describedby="emailHelp" required>
+							<div id="emailHelp" class="form-text">We will never share your email with anyone else.</div>
+							<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+						</div>
+						<div class="mb-3">
+							<label for="password" class="form-label"><i class="bi bi-key"></i> Password</label>
+							<input type="password" class="form-control" th:field="*{password}" required>
+							<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+						</div>
+						<div class="mb-3">
+							<label for="confirmpassword" class="form-label"><i class="bi bi-key-fill"></i> Confirm Password</label>
+							<input type="password" class="form-control" id="confirmpassword" required>
+							<span class="text-danger d-none confirm-pw">Password Mismatch.</span>
+						</div>
+						<button type="submit" class="btn btn-primary">Sign Up</button>
+						<a th:href="@{/users/signin}" class="btn btn-secondary">Sign In</a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div th:include="fragments/layout :: footer"></div>
+	<script>
+		$('#confirmpassword, #password').keyup(function() {
+			console.log($('#confirmpassword').val() == $('#password').val());
+			if ($('#confirmpassword').val() != $('#password').val()) {
+				$('.confirm-pw').removeClass('d-none');
+			} else {
+				$('.confirm-pw').addClass('d-none');
+			}
+		});
+		
+		$("#signUpForm").on("submit", function(e) {
+			if ($('#confirmpassword').val() != $('#password').val()) {
+				e.preventDefault();
+			} else {
+				return true;
+			}
+		});
+	</script>
+
+</body>
+
+</html>

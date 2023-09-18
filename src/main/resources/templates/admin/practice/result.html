@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/admin-layout :: header(title='Practice Management')">
+</head>
+
+<body>
+
+	<div th:include="fragments/admin-layout :: navbar(active='Practices')"></div>
+
+	<div class="container">
+
+		<h1 class="py-4"><i class="bi bi-file-earmark-check"></i> Practice Management</h1>
+
+		<div class="row">
+
+			<div class="col-12 col-md-3 mb-3">
+				<div class="list-group">
+					<a th:href="@{/admin/practice}" class="list-group-item"><i class="bi bi-list-ol"></i> Question List</a>
+					<a th:href="@{/admin/practice/register}" class="list-group-item"><i class="bi bi-database-add"></i> Add New Question</a>
+					<a th:href="@{/admin/practice/result}" class="list-group-item"><i class="bi bi-database"></i> View Result</a>
+				</div>
+			</div>
+
+			<div class="col">
+
+				<div class="alert alert-warning" th:unless="${param.message} eq null" th:text="${param.message}"></div>
+
+				<!-- Search Box -->
+				<div class="card">
+					<div class="card-header bg-primary bg-opacity-75">
+						<h4>Result List</h4>
+					</div>
+
+					<div class="card-body">
+						<form class="row">
+
+							<div class="col-12 col-md mb-2 mb-md-0">
+								<input type="text" name="username" th:value="${param.username}"
+									placeholder="Search with Username" class="form-control username" />
+							</div>
+
+							<div class="col-12 col-md-auto mb-2 mb-md-0">
+								<select name="level" class="form-select level" aria-label="Default select example">
+									<option value="">Choose Japanese Level</option>
+									<option th:each="level : ${levels}" th:text="${level}" th:value="${level}" th:selected="${#strings.equals(param.level, level)}"></option>
+								</select>
+							</div>
+
+							<div class="col-md-auto">
+								<button type="button" id="search-btn" class="btn btn-primary"><i class="bi-search"></i> Search</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<!-- Result Table -->
+				<table class="table table-success table-striped mt-4">
+
+					<thead class="table-warning">
+						<tr>
+							<th>No.</th>
+							<th>Username</th>
+							<th>Result</th>
+							<th>Level</th>
+							<th>Take At</th>
+							<th>Pass/Fail</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="result,iter : ${results}" class="align-middle">
+							<td th:text="${iter.index} + 1 + '.'"></td>
+							<td th:text="${result.username}"></td>
+							<td th:text="${result.result}"></td>
+							<td th:text="${result.level}"></td>
+							<td th:text="${result.createdAt}"></td>
+							<td th:text="(${result.result} >= 70) ? 'Pass' : 'Fail'" th:classappend="(${result.result} >= 70) ? 'text-success' : 'text-danger'"></td>
+						</tr>
+					</tbody>
+
+				</table>
+
+			</div>
+
+		</div>
+	</div>
+
+	<div th:include="fragments/admin-layout :: footer"></div>
+	<script>
+		$( document ).ready(function() {
+		    $('#search-btn').on('click', function() {
+				window.location = window.location.origin + "/admin/practice/result/search?username=" + $(".username").val() + "&level=" + $(".level").val();
+			});
+		});
+	</script>
+
+</body>
+
+</html>

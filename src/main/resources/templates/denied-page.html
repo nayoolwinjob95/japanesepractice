@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/layout :: header(title='Denied')">
+</head>
+
+<body>
+
+	<div th:include="fragments/layout :: navbar"></div>
+
+	<section class="py-5">
+		<div class="container border border-black rounded-4">
+			<div class="row text-center">
+
+				<div class=" text-white resources rounded-top-4">Error 404</div>
+
+				<h2><span style="font-size: 8rem;"><i class="bi bi-file-earmark"></i><br>404</span><br>Sorry.<br>Page not Found.</h2>
+
+			</div>
+		</div>
+	</section>
+
+	<div th:include="fragments/layout :: footer"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/layout :: header(title='Ebook')">
+</head>
+
+<body>
+
+	<div th:include="fragments/layout :: navbar(active='Ebook')"></div>
+
+	<section class="py-5">
+		<div class="container">
+			<div class="card m-auto form" style="width: 28rem;">
+				<div class="card-header text-center bg-primary bg-opacity-75">
+					<h3>Download with Token</h3>
+				</div>
+				<div class="card-body">
+					<form th:action="@{/ebook/download}" method="post">
+						<div th:if="${invalid != null}" class="alert alert-info text-danger" th:text="${invalid}"></div>
+						<div class="mb-3">
+							<label for="token" class="form-label"><i class="bi bi-key-fill"></i> Enter Token to download ebook</label>
+							<input type="token" class="form-control" id="token" name="token">
+						</div>
+						<button type="submit" class="btn btn-primary">Download</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div th:include="fragments/layout :: footer"></div>
+
+</body>
+
+</html>

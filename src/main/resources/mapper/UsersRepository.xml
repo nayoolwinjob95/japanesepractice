@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.japanesepractice.model.repository.UsersRepository">
+
+	<resultMap id="UserResultMap" type="com.app.japanesepractice.model.domain.entity.Users">
+		<result column="id" property="id" />
+		<result column="username" property="username" />
+		<result column="email" property="email" />
+		<result column="password" property="password" />
+		<result column="role" property="role" />
+		<result column="created_at" property="createdAt" />
+		<result column="updated_at" property="updatedAt" />
+	</resultMap>
+	
+	<insert id="save" >
+		INSERT INTO users(username,email,password,role,created_at,updated_at) 
+		VALUES (#{username},#{email},#{password},#{role},NOW(),NOW())
+	</insert>
+	
+	<select id="getUsers" resultMap="UserResultMap">
+		SELECT * FROM users
+		WHERE 1 = 1
+		<if test="username != null and username != ''">
+			and username like CONCAT('%', #{username}, '%')
+		</if>
+		<if test="role != null and role != ''">
+			and role = #{role}
+		</if>
+		ORDER BY id
+	</select>
+	
+	<select id="findOneByEmail" resultMap="UserResultMap">
+		SELECT * FROM users WHERE email = #{email}
+	</select>
+	
+	<select id="getUserById" resultMap="UserResultMap">
+		SELECT * FROM users WHERE id = #{id}
+	</select>
+	
+	<select id="count">
+		SELECT COUNT(id) FROM users
+	</select>
+	
+	<delete id="delete" >
+		DELETE FROM users
+		WHERE id = #{id}
+	</delete>
+	
+	<update id="update" >
+		UPDATE users 
+		SET username = #{user.username},
+			role = #{user.role}
+		WHERE id = #{user.id}
+	</update>
+	
+</mapper>

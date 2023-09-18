@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/admin-layout :: header(title='Ebook Management')">
+</head>
+
+<body>
+
+	<div th:include="fragments/admin-layout :: navbar(active='Ebooks')"></div>
+
+	<div class="container">
+
+		<h1 class="py-4"><i class="bi bi-book"></i> Ebook Management</h1>
+
+		<div class="row">
+
+			<div class="col-12 col-md-3 mb-3">
+				<div class="list-group">
+					<a th:href="@{/admin/ebook}" class="list-group-item"><i class="bi bi-list-ol"></i> Ebook List</a>
+					<a th:href="@{/admin/ebook/register}" class="list-group-item"><i class="bi bi-database-add"></i>
+						Add New Ebook</a>
+				</div>
+			</div>
+
+			<div class="col">
+
+				<div class="alert alert-warning" th:unless="${param.message} eq null" th:text="${param.message}"></div>
+
+				<!-- Search Box -->
+				<div class="card">
+					<div class="card-header bg-primary bg-opacity-75">
+						<h4>Ebook Register</h4>
+					</div>
+
+					<div class="card-body">
+						<form th:action="@{/admin/ebook/register}" method="post" th:object="${form}" enctype="multipart/form-data">
+
+							<div class="mb-3">
+								<label for="bookTitle" class="form-label">Book Title</label>
+								<input type="text" class="form-control" th:field="*{bookTitle}">
+								<span th:if="${#fields.hasErrors('bookTitle')}" th:errors="*{bookTitle}" class="text-danger"></span>
+							</div>
+							
+							<div class="mb-3">
+								<label for="bookTitleKana" class="form-label">Book Title Kana</label>
+								<input type="text" class="form-control" th:field="*{bookTitleKana}">
+								<span th:if="${#fields.hasErrors('bookTitleKana')}" th:errors="*{bookTitleKana}" class="text-danger"></span>
+							</div>
+							
+							<div class="mb-3">
+								<label for="level" class="form-label">Choose Japanese Level</label>
+								<select id="level" name="level" class="form-select" aria-label="Default select example">
+									<option></option>
+									<option th:each="level : ${levels}" th:text="${level}" th:value="${level}" th:selected="${#strings.equals(form.level, level)}"></option>
+								</select>
+								<span th:if="${#fields.hasErrors('level')}" th:errors="*{level}" class="text-danger"></span>
+							</div>
+							
+							<div class="mb-3">
+								<label for="bookImage" class="form-label">Book Image</label><br>
+								<input type="file" th:field="*{bookImage}" required>
+							</div>
+							
+							<div class="mb-3">
+								<label for="bookPdf" class="form-label">Book Pdf</label><br>
+								<input type="file" th:field="*{bookPdf}" required>
+							</div>
+							
+							<button type="submit" class="btn btn-primary col-auto">Submit</button>
+
+						</form>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+	<div th:include="fragments/admin-layout :: footer"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/layout :: header(title='Sign In')">
+</head>
+
+<body>
+
+	<div th:include="fragments/layout :: navbar(active='SignIn')"></div>
+
+	<section class="py-5">
+		<div class="container">
+			<div class="card m-auto form" style="width: 28rem;">
+				<div class="card-header text-center bg-primary bg-opacity-75">
+					<h3 th:text="#{signin}">Sign In</h3>
+				</div>
+				<div class="card-body">
+					<form th:action="@{/users/signin}" method="post">
+						<div th:if="${param.error != null}" class="alert alert-info text-danger">Please Check Login Information.</div>
+						<div class="mb-3">
+							<label for="email" class="form-label"><i class="bi bi-envelope-at"></i> Email Address</label>
+							<input type="email" class="form-control" id="email" name="username">
+						</div>
+						<div class="mb-3">
+							<label for="password" class="form-label"><i class="bi bi-key-fill"></i> Password</label>
+							<input type="password" class="form-control" id="password" name="password">
+						</div>
+						<button type="submit" class="btn btn-primary">Sign In</button>
+						<a th:href="@{/users/signup}" class="btn btn-secondary">Sign Up</a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div th:include="fragments/layout :: footer"></div>
+
+</body>
+
+</html>
